@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
+import ro.pub.cs.systems.eim.practicaltest02v9.MapsActivity
 import kotlin.concurrent.thread
 
 class PracticalTest02MainActivityv9 : AppCompatActivity() {
@@ -34,6 +35,7 @@ class PracticalTest02MainActivityv9 : AppCompatActivity() {
         val wordEditText = findViewById<EditText>(R.id.wordEditText)
         val minLengthEditText = findViewById<EditText>(R.id.minLengthEditText)
         val searchButton = findViewById<Button>(R.id.searchButton)
+        val openMapButton = findViewById<Button>(R.id.openMapButton) // ✅ Referință la butonul pentru hartă
         resultTextView = findViewById(R.id.resultTextView)
 
         registerReceiver(anagramReceiver, IntentFilter(BROADCAST_ACTION))
@@ -42,6 +44,12 @@ class PracticalTest02MainActivityv9 : AppCompatActivity() {
             val word = wordEditText.text.toString()
             val minLength = minLengthEditText.text.toString().toIntOrNull() ?: 0
             fetchAnagrams(word, minLength)
+        }
+
+        // ✅ Deschidere MapsActivity la apăsarea butonului
+        openMapButton.setOnClickListener {
+            val intent = Intent(this, MapsActivity::class.java)
+            startActivity(intent)
         }
     }
 
